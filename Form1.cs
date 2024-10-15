@@ -66,7 +66,7 @@ namespace TempClean__
             tmpPath = Path.GetTempPath();
             files.Clear();
             files.AddRange(Directory.GetFiles(tmpPath, "*.*", SearchOption.AllDirectories));
-            files.AddRange(Directory.GetFiles("C:\\Windows\\Temp", " *.*", SearchOption.AllDirectories));
+            files.AddRange(Directory.GetFiles("C:\\Windows\\Temp", "*.*", SearchOption.AllDirectories));
             //files.AddRange(Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+ "\\Temp","*.*", SearchOption.AllDirectories));
 
             folder = new DirectoryInfo(tmpPath);
@@ -131,18 +131,35 @@ namespace TempClean__
                 //Delete Folders
                 foreach (DirectoryInfo dir in folder.GetDirectories())
                 {
-                    dir.Delete(true);
+                    try
+                    {
+                        dir.Delete(true);
+                        Directory.Delete(dir.FullName);
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 foreach (DirectoryInfo dir in folder2.GetDirectories())
                 {
-                    dir.Delete(true);
+                    try
+                    {
+                        dir.Delete(true);
+                        Directory.Delete(dir.FullName);
+                    }
+                    catch
+                    {
+
+                    }
                 }
-                foreach (DirectoryInfo dir in folder3.GetDirectories())
-                {
-                    dir.Delete(true);
-                }
+                //foreach (DirectoryInfo dir in folder3.GetDirectories())
+                //{
+                //    dir.Delete(true);
+                //}
             }
-            catch {
+            catch
+            {
                 //backgroundWorker1.ReportProgress(calcPercentage);
             }
         }
